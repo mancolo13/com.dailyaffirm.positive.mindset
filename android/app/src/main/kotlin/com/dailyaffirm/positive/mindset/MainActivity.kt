@@ -1,4 +1,4 @@
-package com.pulsefit.workout.hiit
+package com.dailyaffirm.positive.mindset
 
 import io.flutter.embedding.android.FlutterActivity
 
