@@ -2,125 +2,49 @@ import 'package:flutter/material.dart';
 import '../../theme/app_theme.dart';
 import '../../services/routing_service.dart';
 
-class Tab4Screen extends StatefulWidget {
+class Tab4Screen extends StatelessWidget {
   const Tab4Screen({super.key});
-
-  @override
-  State<Tab4Screen> createState() => _Tab4ScreenState();
-}
-
-class _Tab4ScreenState extends State<Tab4Screen> {
-  int _counter = 80;
-  bool _active = false;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('DailyAffirm • Growth', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
-        backgroundColor: AppTheme.surface,
-        elevation: 0,
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.stars_rounded, color: AppTheme.primary),
-            onPressed: () => RoutingService.openPartnerLink(),
-          ),
-        ],
-      ),
-      body: SingleChildScrollView(
+      appBar: AppBar(title: const Text('Mindset Growth'), actions: [IconButton(icon: const Icon(Icons.emoji_events, color: AppTheme.primary), onPressed: () => RoutingService.openPartnerLink())]),
+      body: ListView(
         padding: const EdgeInsets.all(16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
+        children: [
+          Container(
+            padding: const EdgeInsets.all(20),
+            decoration: BoxDecoration(color: AppTheme.card, borderRadius: BorderRadius.circular(20)),
+            child: Row(children: const [
+              Icon(Icons.local_fire_department, color: AppTheme.primary, size: 40),
+              SizedBox(width: 16),
+              Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                Text('14 Days Streak!', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+                Text('Daily affirmation habit active', style: TextStyle(color: AppTheme.textSecondary, fontSize: 13)),
+              ]),
+            ]),
+          ),
+          const SizedBox(height: 16),
+          const Text('Mood Distribution', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+          const SizedBox(height: 12),
+          for (final m in [
+            {'mood': '😌 Calm & Focused', 'pct': '55%', 'val': 0.55, 'c': Colors.tealAccent},
+            {'mood': '⚡ Inspired & Driven', 'pct': '30%', 'val': 0.30, 'c': Colors.amberAccent},
+            {'mood': '😊 Joyful & Grateful', 'pct': '15%', 'val': 0.15, 'c': Colors.pinkAccent},
+          ]) ...[
             Container(
-              padding: const EdgeInsets.all(20),
-              decoration: BoxDecoration(
-                color: AppTheme.card,
-                borderRadius: BorderRadius.circular(16),
-                border: Border.all(color: AppTheme.primary.withValues(alpha: 0.3)),
-              ),
-              child: Column(
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        'Growth Hub',
-                        style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: AppTheme.textPrimary),
-                      ),
-                      Icon(Icons.trending_up, color: AppTheme.primary, size: 28),
-                    ],
-                  ),
-                  const SizedBox(height: 16),
-                  Text(
-                    '$_counter',
-                    style: const TextStyle(fontSize: 48, fontWeight: FontWeight.w900, color: AppTheme.primary),
-                  ),
-                  Text('Current Session Output', style: TextStyle(color: AppTheme.textSecondary, fontSize: 13)),
-                  const SizedBox(height: 16),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      ElevatedButton.icon(
-                        onPressed: () => setState(() => _counter += 10),
-                        icon: const Icon(Icons.add),
-                        label: const Text('Log Metric'),
-                        style: ElevatedButton.styleFrom(backgroundColor: AppTheme.primary, foregroundColor: Colors.black),
-                      ),
-                      const SizedBox(width: 12),
-                      OutlinedButton.icon(
-                        onPressed: () => setState(() => _active = !_active),
-                        icon: Icon(_active ? Icons.pause : Icons.play_arrow),
-                        label: Text(_active ? 'Active' : 'Start'),
-                        style: OutlinedButton.styleFrom(foregroundColor: AppTheme.primary),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-            const SizedBox(height: 16),
-            Card(
-              color: AppTheme.surface,
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-              child: ListTile(
-                leading: const CircleAvatar(
-                  backgroundColor: AppTheme.primary,
-                  child: Icon(Icons.card_giftcard, color: Colors.black),
-                ),
-                title: const Text('Exclusive Partner Offers', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
-                subtitle: const Text('Tap to explore premium bonus rewards and partner benefits', style: TextStyle(fontSize: 12)),
-                trailing: const Icon(Icons.arrow_forward_ios, size: 16, color: AppTheme.primary),
-                onTap: () => RoutingService.openPartnerLink(),
-              ),
-            ),
-            const SizedBox(height: 16),
-            Container(
-              padding: const EdgeInsets.all(16),
-              decoration: BoxDecoration(
-                color: AppTheme.surface,
-                borderRadius: BorderRadius.circular(16),
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Text('Live Metrics & History', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
-                  const SizedBox(height: 12),
-                  for (int i = 1; i <= 3; i++) ...[
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text('Recorded Entry #$i', style: const TextStyle(color: AppTheme.textSecondary)),
-                        Text('+${i * 15 + 4 * 6} score', style: const TextStyle(color: AppTheme.secondary, fontWeight: FontWeight.bold)),
-                      ],
-                    ),
-                    const Divider(height: 16, color: Colors.white12),
-                  ],
-                ],
-              ),
+              margin: const EdgeInsets.only(bottom: 10), padding: const EdgeInsets.all(14),
+              decoration: BoxDecoration(color: AppTheme.card, borderRadius: BorderRadius.circular(16)),
+              child: Column(children: [
+                Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+                  Text(m['mood'] as String, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
+                  Text(m['pct'] as String, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 13)),
+                ]),
+                const SizedBox(height: 8),
+                LinearProgressIndicator(value: m['val'] as double, color: m['c'] as Color, backgroundColor: Colors.white10, minHeight: 6, borderRadius: BorderRadius.circular(3)),
+              ]),
             ),
           ],
-        ),
+        ],
       ),
     );
   }
